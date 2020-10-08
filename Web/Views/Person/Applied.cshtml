@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Applied Persons";
+}
+
+<h2 class="text-center">Applied People of B&C</h2>
+<div class="row">
+    <div class="col-sm-6 form-group">
+        <label>Board or Commission</label>
+        <select class="form-control" id="boardCommission">
+            <option value="">All</option>
+            @foreach (var i in ViewBag.BoardCommissionList)
+            {
+                <option value="@i.Id">@i.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-sm-6 form-group"></div>
+</div>
+<br />
+<table id="myTable" class="display table table-hover">
+    <thead>
+        <tr>
+            <th>Person Name</th>
+            <th>Applied Date</th>
+            <th>Board Seat</th>
+            <th>Links</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "ajax": {
+                    "url": "/person/ajaxappliedpersonlist",
+                    "data": function (d) {
+                        d.boardCommission = $('#boardCommission').val();
+                    }
+                },
+                "columns": [
+                    { "data": "Name" },
+                    { "data": "AppliedDate" },
+                    { "data": "BoardSeat" },
+                    {
+                        "render": function (data, type, row, meta) {
+                            return '<a href="/person/contactinfo/' + row.Id + '">Contact Info</a> | <a href="/person/appquestions/' + row.BoardCommissionId + '">Application Questions</a>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        $('#boardCommission').change(function () {
+            oTable.ajax.reload();
+        });
+    </script>
+}

@@ -1,0 +1,24 @@
+<note>
+<to>Tove</to>
+<from>Jani</from>
+<heading>Reminder</heading>
+<body>
+Don't forget me this weekend!
+<div class="nsc-content-camera nsc-hide">
+<div class="nsc-content-camera-buttons" flex="none" layout="row" layout-align="start start">
+<button class="nsc-content-camera-button" type="button" id="nsc_video_camera_collapse" style="display: none">
+<span class="nsc-icon nsc-icon-panel-collapse"/>
+</button>
+<button class="nsc-content-camera-button" type="button" id="nsc_video_camera_expand">
+<span class="nsc-icon nsc-icon-panel-expand"/>
+</button>
+<button class="nsc-content-camera-button" type="button" id="nsc_video_camera_close">
+<span class="nsc-icon nsc-icon-panel-close"/>
+</button>
+</div>
+<div class="nsc-content-camera-container">
+<div class="nsc-content-camera-shadow"/>
+</div>
+</div>
+</body>
+</note>

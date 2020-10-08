@@ -1,0 +1,13 @@
+﻿@model Web.Models.VmQuesAns
+@using System.Xml.Linq;
+
+@{
+    ViewBag.Title = "Questions/Answers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="text-center">Questions/Answers</h2>
+<br />
+
+<div class="display-field">
+    @MvcHtmlString.Create(HttpUtility.HtmlDecode(Model.ApplicationXml).Replace("\n", "<br/>"))
+</div>

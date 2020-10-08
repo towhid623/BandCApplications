@@ -1,0 +1,22 @@
+﻿@model Web.Models.VmContactInfo
+@{
+    ViewBag.Title = "ContactInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">@Model.Name</h2>
+<br />
+<div class="row">
+    <div class="col-sm-6 form-group">
+        <label>Phone Number</label>
+        <input type="text" readonly class="form-control" value="@Model.PhoneNumber" />
+    </div>
+    <div class="col-sm-6 form-group">
+        <label>Email Address</label>
+        <input type="text" readonly class="form-control" value="@Model.Email" />
+    </div>
+    <div class="col-sm-12 form-group">
+        <label>Address</label>
+        <textarea class="form-control" readonly rows="2" value="@Model.Address"></textarea>
+    </div>
+</div>

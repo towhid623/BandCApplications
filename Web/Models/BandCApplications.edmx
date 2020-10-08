@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BandCApplicationsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BoardMembers">
+          <Key>
+            <PropertyRef Name="BoardMemberkey" />
+          </Key>
+          <Property Name="BoardMemberkey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonKey" Type="int" Nullable="false" />
+          <Property Name="BoardKey" Type="int" Nullable="false" />
+          <Property Name="AppointmentDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M_BoardsandCommissions">
+          <Key>
+            <PropertyRef Name="BoardCommissionKey" />
+          </Key>
+          <Property Name="BoardCommissionKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Board_or_Commission_Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ApplicationXML" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Default_Contact_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Default_Email" Type="varchar" MaxLength="100" />
+          <Property Name="Default_Phone" Type="varchar" MaxLength="100" />
+          <Property Name="Default_Web" Type="varchar" MaxLength="100" />
+          <Property Name="Appointment_Type" Type="varchar" MaxLength="100" />
+          <Property Name="Authority" Type="varchar" MaxLength="100" />
+          <Property Name="TermLength" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="Special_Requirements" Type="varchar" MaxLength="200" />
+          <Property Name="Staff_Contact" Type="varchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+          </Key>
+          <Property Name="PersonKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Occupation" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BusinessName" Type="varchar" MaxLength="100" />
+          <Property Name="BusinessStreetAddress" Type="varchar" MaxLength="100" />
+          <Property Name="BusinessCity" Type="varchar" MaxLength="100" />
+          <Property Name="BusinessZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="HomeTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="BusinessTelephone" Type="varchar" MaxLength="50" />
+          <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+          <Property Name="FaxNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Ward" Type="varchar" MaxLength="50" />
+          <Property Name="Resident" Type="bit" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="100" />
+          <Property Name="AccessID" Type="int" />
+          <Property Name="Confirmed" Type="bit" />
+          <Property Name="Age" Type="varchar" MaxLength="4" />
+          <Property Name="License" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Person_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationKey" />
+          </Key>
+          <Property Name="ApplicationKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BoardCommissionKey" Type="int" Nullable="false" />
+          <Property Name="PersonKey" Type="int" Nullable="false" />
+          <Property Name="Supplemental_Answers" Type="varchar(max)" Nullable="false" />
+          <Property Name="ApplicationDate" Type="datetime" Nullable="false" />
+          <Property Name="Accepted" Type="bit" />
+          <Property Name="Appointed" Type="bit" />
+          <Property Name="Expired_Notified" Type="bit" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="UsersInRoles">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="PersonKey" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Voluntary_Survey">
+          <Key>
+            <PropertyRef Name="Voluntarykey" />
+          </Key>
+          <Property Name="Voluntarykey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Source" Type="varchar" MaxLength="100" />
+          <Property Name="Source_Details" Type="varchar" MaxLength="200" />
+          <Property Name="Disability" Type="bit" />
+          <Property Name="Ethnic_Category" Type="varchar" MaxLength="25" />
+          <Property Name="Sex" Type="varchar" MaxLength="6" />
+          <Property Name="Age_Category" Type="varchar" MaxLength="50" />
+          <Property Name="BoardAppliedFor" Type="varchar" MaxLength="200" />
+          <Property Name="DateApplied" Type="datetime" />
+        </EntityType>
+        <Association Name="UsersInRoleRole">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BandCApplicationsModelStoreContainer">
+          <EntitySet Name="BoardMembers" EntityType="Self.BoardMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_BoardsandCommissions" EntityType="Self.M_BoardsandCommissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person_Applications" EntityType="Self.Person_Applications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voluntary_Survey" EntityType="Self.Voluntary_Survey" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="UsersInRoleRole" Association="Self.UsersInRoleRole">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BandCApplicationsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BoardMember">
+          <Key>
+            <PropertyRef Name="BoardMemberkey" />
+          </Key>
+          <Property Name="BoardMemberkey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonKey" Type="Int32" Nullable="false" />
+          <Property Name="BoardKey" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="M_BoardsandCommissions">
+          <Key>
+            <PropertyRef Name="BoardCommissionKey" />
+          </Key>
+          <Property Name="BoardCommissionKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Board_or_Commission_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApplicationXML" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Default_Contact_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Default_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Default_Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Default_Web" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Appointment_Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Authority" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TermLength" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="Special_Requirements" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Staff_Contact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+          </Key>
+          <Property Name="PersonKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StreetAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Occupation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BusinessName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessStreetAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessCity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HomeTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ward" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Resident" Type="Boolean" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AccessID" Type="Int32" />
+          <Property Name="Confirmed" Type="Boolean" />
+          <Property Name="Age" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Person_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationKey" />
+          </Key>
+          <Property Name="ApplicationKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BoardCommissionKey" Type="Int32" Nullable="false" />
+          <Property Name="PersonKey" Type="Int32" Nullable="false" />
+          <Property Name="Supplemental_Answers" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApplicationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Accepted" Type="Boolean" />
+          <Property Name="Appointed" Type="Boolean" />
+          <Property Name="Expired_Notified" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsersInRoles" Relationship="Self.UsersInRoleRole" FromRole="Roles" ToRole="UsersInRoles" />
+        </EntityType>
+        <EntityType Name="UsersInRole">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="PersonKey" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.UsersInRoleRole" FromRole="UsersInRoles" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Voluntary_Survey">
+          <Key>
+            <PropertyRef Name="Voluntarykey" />
+          </Key>
+          <Property Name="Voluntarykey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Source" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Source_Details" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Disability" Type="Boolean" />
+          <Property Name="Ethnic_Category" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Age_Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BoardAppliedFor" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DateApplied" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="UsersInRoleRole">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="UsersInRoles" Type="Self.UsersInRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BandCApplicationsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BoardMembers" EntityType="Self.BoardMember" />
+          <EntitySet Name="M_BoardsandCommissions" EntityType="Self.M_BoardsandCommissions" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Person_Applications" EntityType="Self.Person_Applications" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRole" />
+          <EntitySet Name="Voluntary_Survey" EntityType="Self.Voluntary_Survey" />
+          <AssociationSet Name="UsersInRoleRole" Association="Self.UsersInRoleRole">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BandCApplicationsModelStoreContainer" CdmEntityContainer="BandCApplicationsEntities1">
+          <EntitySetMapping Name="BoardMembers">
+            <EntityTypeMapping TypeName="BandCApplicationsModel.BoardMember">
+              <MappingFragment StoreEntitySet="BoardMembers">
+                <ScalarProperty Name="BoardMemberkey" ColumnName="BoardMemberkey" />
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="BoardKey" ColumnName="BoardKey" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_BoardsandCommissions">
+            <EntityTypeMapping TypeName="BandCApplicationsModel.M_BoardsandCommissions">
+              <MappingFragment StoreEntitySet="M_BoardsandCommissions">
+                <ScalarProperty Name="BoardCommissionKey" ColumnName="BoardCommissionKey" />
+                <ScalarProperty Name="Board_or_Commission_Name" ColumnName="Board_or_Commission_Name" />
+                <ScalarProperty Name="ApplicationXML" ColumnName="ApplicationXML" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Default_Contact_Name" ColumnName="Default_Contact_Name" />
+                <ScalarProperty Name="Default_Email" ColumnName="Default_Email" />
+                <ScalarProperty Name="Default_Phone" ColumnName="Default_Phone" />
+                <ScalarProperty Name="Default_Web" ColumnName="Default_Web" />
+                <ScalarProperty Name="Appointment_Type" ColumnName="Appointment_Type" />
+                <ScalarProperty Name="Authority" ColumnName="Authority" />
+                <ScalarProperty Name="TermLength" ColumnName="TermLength" />
+                <ScalarProperty Name="Special_Requirements" ColumnName="Special_Requirements" />
+                <ScalarProperty Name="Staff_Contact" ColumnName="Staff_Contact" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="BandCApplicationsModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="BusinessStreetAddress" ColumnName="BusinessStreetAddress" />
+                <ScalarProperty Name="BusinessCity" ColumnName="BusinessCity" />
+                <ScalarProperty Name="BusinessZipCode" ColumnName="BusinessZipCode" />
+                <ScalarProperty Name="HomeTelephone" ColumnName="HomeTelephone" />
+                <ScalarProperty Name="BusinessTelephone" ColumnName="BusinessTelephone" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Resident" ColumnName="Resident" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AccessID" ColumnName="AccessID" />
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="License" ColumnName="License" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person_Applications">
+            <EntityTypeMapping TypeName="BandCApplicationsModel.Person_Applications">
+              <MappingFragment StoreEntitySet="Person_Applications">
+                <ScalarProperty Name="ApplicationKey" ColumnName="ApplicationKey" />
+                <ScalarProperty Name="BoardCommissionKey" ColumnName="BoardCommissionKey" />
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="Supplemental_Answers" ColumnName="Supplemental_Answers" />
+                <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+                <ScalarProperty Name="Accepted" ColumnName="Accepted" />
+                <ScalarProperty Name="Appointed" ColumnName="Appointed" />
+                <ScalarProperty Name="Expired_Notified" ColumnName="Expired_Notified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="BandCApplicationsModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersInRoles">
+            <EntityTypeMapping TypeName="BandCApplicationsModel.UsersInRole">
+              <MappingFragment StoreEntitySet="UsersInRoles">
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Voluntary_Survey">
+            <EntityTypeMapping TypeName="BandCApplicationsModel.Voluntary_Survey">
+              <MappingFragment StoreEntitySet="Voluntary_Survey">
+                <ScalarProperty Name="Voluntarykey" ColumnName="Voluntarykey" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Source_Details" ColumnName="Source_Details" />
+                <ScalarProperty Name="Disability" ColumnName="Disability" />
+                <ScalarProperty Name="Ethnic_Category" ColumnName="Ethnic_Category" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Age_Category" ColumnName="Age_Category" />
+                <ScalarProperty Name="BoardAppliedFor" ColumnName="BoardAppliedFor" />
+                <ScalarProperty Name="DateApplied" ColumnName="DateApplied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
